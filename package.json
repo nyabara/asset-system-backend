@@ -22,9 +22,10 @@
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
-    "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/platform-express": "^11.0.12",
     "@nestjs/swagger": "^11.0.7",
     "@nestjs/typeorm": "^11.0.0",
+    "azure-functions-core-tools": "^4.0.6821",
     "envalid": "^8.0.0",
     "pg": "^8.14.1",
     "reflect-metadata": "^0.2.2",

@@ -18,10 +18,11 @@ export const databaseProvider = [
             const dataSource = new DataSource({
                 type: 'postgres',
                 host: env.POSTGRES_HOST,
-                port: env.POSTGRES_PORT,
+                port: Number(env.POSTGRES_PORT) || 5432,
                 username: env.POSTGRES_USER,
                 password: env.POSTGRES_PASSWORD,
                 database: env.POSTGRES_DB,
+                ssl: env.POSTGRES_SSL ? { rejectUnauthorized: false } : false,
                 entities: [
                     User,
                     AssetStatus,
@@ -34,7 +35,7 @@ export const databaseProvider = [
                     AssetImage,
                     AssetMovement
                 ],
-                synchronize: true,
+                synchronize: true, // Set to false in production
                 logging: true,
             });
             return dataSource.initialize();
