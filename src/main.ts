@@ -8,6 +8,8 @@ async function bootstrap() {
 
     // Enable cookie parsing middleware
     //app.use(cookieParser());
+    app.enableCors();
+
 
   const config = new DocumentBuilder()
     .setTitle('API Documentation')
