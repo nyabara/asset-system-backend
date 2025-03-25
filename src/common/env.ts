@@ -9,10 +9,8 @@ export const env = cleanEnv(process.env, {
   POSTGRES_HOST: str(),
   POSTGRES_PORT: port({ default: 5432 }),
   POSTGRES_DB: str(),
-  POSTGRES_SSL: bool({ default: false }), // ✅ Use `bool()` to correctly validate boolean values
-
+  POSTGRES_SSL: str({ default: "false" }),
   PORT: port({ default: 5000 }),
-
   JWT_SECRET: str(),
   GOOGLE_CLIENT_SECRET: str(),
   GOOGLE_CLIENT_ID: str(),

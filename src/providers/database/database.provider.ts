@@ -22,7 +22,7 @@ export const databaseProvider = [
                 username: env.POSTGRES_USER,
                 password: env.POSTGRES_PASSWORD,
                 database: env.POSTGRES_DB,
-                ssl: env.POSTGRES_SSL ? { rejectUnauthorized: false } : false,
+                ssl: env.POSTGRES_SSL === "true" ? { rejectUnauthorized: false } : false,
                 entities: [
                     User,
                     AssetStatus,
