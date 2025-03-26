@@ -11,18 +11,20 @@ import { Asset } from "src/entities/asset.entity";
 import { AssetImage } from "src/entities/asset_image.entity";
 import { AssetMovement } from "src/entities/asset_movement.entity";
 
+
+
 export const databaseProvider = [
     {
         provide: 'DATA_SOURCE',
         useFactory: async () => {
             const dataSource = new DataSource({
                 type: 'postgres',
-                host: env.POSTGRES_HOST,
-                port: Number(env.POSTGRES_PORT) || 5432,
-                username: env.POSTGRES_USER,
-                password: env.POSTGRES_PASSWORD,
-                database: env.POSTGRES_DB,
-                ssl: env.POSTGRES_SSL === "true" ? { rejectUnauthorized: false } : false,
+                host: env.AZURE_POSTGRESQL_HOST,
+                port: Number(env.AZURE_POSTGRESQL_PORT) || 5432,
+                username: env.AZURE_POSTGRESQL_USER,
+                password: env.AZURE_POSTGRESQL_PASSWORD,
+                database: env.AZURE_POSTGRESQL_DATABASE,
+                ssl: env.AZURE_POSTGRESQL_SSL === "true" ? { rejectUnauthorized: false } : false,
                 entities: [
                     User,
                     AssetStatus,
