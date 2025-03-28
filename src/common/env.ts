@@ -23,11 +23,11 @@ export const env = cleanEnv(process.env, {
   AZURE_POSTGRESQL_PORT: port({ default: 5432 }),
   AZURE_POSTGRESQL_DATABASE : str(),
   AZURE_POSTGRESQL_SSL: str({ default: "false" }),
-  PORT: port({ default: 5000 }),
-  JWT_SECRET: str(),
-  GOOGLE_CLIENT_SECRET: str(),
-  GOOGLE_CLIENT_ID: str(),
-  FRONTEND_URL: url(),
+  // PORT: port({ default: 5000 }),
+  // JWT_SECRET: str(),
+  // GOOGLE_CLIENT_SECRET: str(),
+  // GOOGLE_CLIENT_ID: str(),
+  // FRONTEND_URL: url(),
 });
 
 
