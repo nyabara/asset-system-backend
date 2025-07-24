@@ -24,7 +24,6 @@ export class AssetController {
     return this.assetService.findOne(id);
   }
   
-  
   @Post('upload')
   @UseInterceptors(
     FilesInterceptor('images', 10, {
@@ -63,7 +62,6 @@ export class AssetController {
     
     return newAsset;
   }
-  
   
   @Put(':id')
   update(@Param('id') id: number, @Body() asset: Partial<Asset>): Promise<void> {
