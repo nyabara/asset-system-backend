@@ -1,19 +1,19 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { AssetCategory } from 'src/entities/asset_category.entity'; 
+import { Category } from 'src/entities/asset_category.entity'; 
 
 @Injectable()
 export class AssetCategoryService {
   constructor(
     @Inject('ASSET_CATEGORY_REPOSITORY')
-    private readonly assetCategoryRepository: Repository<AssetCategory>,
+    private readonly assetCategoryRepository: Repository<Category>,
   ) {}
 
-  async findAll(): Promise<AssetCategory[]> {
+  async findAll(): Promise<Category[]> {
     return this.assetCategoryRepository.find();
   }
 
-  async findOne(id: number): Promise<AssetCategory> {
+  async findOne(id: number): Promise<Category> {
     const assetCategory = await this.assetCategoryRepository.findOne({ where: { id } });
     if (!assetCategory) {
       throw new NotFoundException(`AssetCategory with ID ${id} not found`);
@@ -21,11 +21,11 @@ export class AssetCategoryService {
     return assetCategory;
   }
 
-  async create(assetCategory: Partial<AssetCategory>): Promise<AssetCategory> {
+  async create(assetCategory: Partial<Category>): Promise<Category> {
     return this.assetCategoryRepository.save(assetCategory);
   }
 
-  async update(id: number, data: Partial<AssetCategory>): Promise<void> {
+  async update(id: number, data: Partial<Category>): Promise<void> {
     await this.assetCategoryRepository.update(id, data);
   }
 

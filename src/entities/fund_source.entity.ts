@@ -6,5 +6,5 @@ export class FundSource {
     id: number;
 
     @Column()
-    fund_name: string;
+    fundSourceName: string;
 }

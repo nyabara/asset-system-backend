@@ -1,54 +1,60 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
-import { AssetStatus } from "./asset_status.entity";
-import { FundSource } from "./fund_source.entity";
-import { AssetCategory } from "./asset_category.entity";
-import { User } from "./user.entity";
-import { AssetImage } from "./asset_image.entity";
-import { Location } from "./location.entity";
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity('assets')
 @Unique(['barcode'])
 @Unique(['serial_number'])
 export class Asset {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    description: string;
+  @Column()
+  description: string;
 
-    @Column()
-    barcode: string;
+  @Column()
+  barcode: string;
 
-    @Column()
-    serial_number: string;
+  @Column()
+  serialNumber: string;
 
-    @Column()
-    item_code: string;
+  @Column('decimal')
+  unitCost: number;
 
-    @Column('decimal')
-    unit_cost: number;
+  @Column()
+  statusId: number;
 
-    @Column()
-    year: number;
+  @Column()
+  fundSourceId: number;
 
-    @ManyToOne(() => AssetStatus)
-    status: AssetStatus;
+  @Column()
+  categoryId: number;
 
-    @ManyToOne(() => Location)
-    location: Location;
+  @Column()
+  countyId: number;
 
-    @ManyToOne(() => FundSource)
-    fund_source: FundSource;
+  @Column()
+  subCountyId: number;
 
-    @ManyToOne(() => AssetCategory)
-    category: AssetCategory;
+  @Column({ nullable: true })
+  notes: string;
 
-    @ManyToOne(() => User)
-    responsible_user: User;
+  @Column({ nullable: true })
+  date: string;
 
-    @Column()
-    notes: string;
+  @Column({ nullable: true })
+  place: string;
 
-    @OneToMany(() => AssetImage, (image) => image.asset)
-    images: AssetImage[];
+  @Column({ nullable: true })
+  photo1: string;
+
+  @Column({ nullable: true })
+  photo2: string;
+
+  @Column({ nullable: true })
+  photo3: string;
+
+  @Column({ type: 'double precision', nullable: true })
+  latitude: number;
+
+  @Column({ type: 'double precision', nullable: true })
+  longitude: number;
 }

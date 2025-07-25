@@ -1,28 +1,28 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
 import { AssetCategoryService } from 'src/services/asset.category.services';
-import { AssetCategory } from 'src/entities/asset_category.entity';
+import { Category } from 'src/entities/asset_category.entity';
 
 @Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryService: AssetCategoryService) {}
 
   @Get()
-  findAll(): Promise<AssetCategory[]> {
+  findAll(): Promise<Category[]> {
     return this.categoryService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): Promise<AssetCategory> {
+  findOne(@Param('id') id: number): Promise<Category> {
     return this.categoryService.findOne(id);
   }
 
   @Post()
-  create(@Body() assetCategory: Partial<AssetCategory>): Promise<AssetCategory> {
+  create(@Body() assetCategory: Partial<Category>): Promise<Category> {
     return this.categoryService.create(assetCategory);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() assetCategory: Partial<AssetCategory>): Promise<void> {
+  update(@Param('id') id: number, @Body() assetCategory: Partial<Category>): Promise<void> {
     return this.categoryService.update(id, assetCategory);
   }
 

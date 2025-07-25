@@ -1,10 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('asset_categories')
-export class AssetCategory {
+export class Category {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    category_name: string;
+    categoryName: string;
 }

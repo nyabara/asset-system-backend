@@ -6,5 +6,6 @@ export class AssetStatus {
     id: number;
 
     @Column()
-    status_name: string;
+    statusName: string;
 }
+

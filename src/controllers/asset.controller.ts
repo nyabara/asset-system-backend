@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors, UploadedFiles, BadRequestException } from '@nestjs/common';
 import { AssetService } from 'src/services/asset.service';
 import { Asset } from 'src/entities/asset.entity';
-import { AssetImageService } from 'src/services/asset.image.service';
+//import { AssetImageService } from 'src/services/asset.image.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -11,7 +11,6 @@ import { CreateAssetDto } from 'src/dtos/create-asset.dto';
 export class AssetController {
   constructor(
     private readonly assetService: AssetService,
-    private readonly assetImageService: AssetImageService
   ) {}
 
   @Get()
@@ -19,49 +18,57 @@ export class AssetController {
     return this.assetService.findAll();
   }
 
+  
+
   @Get(':id')
   findOne(@Param('id') id: number): Promise<Asset> {
     return this.assetService.findOne(id);
   }
-  
-  @Post('upload')
-  @UseInterceptors(
-    FilesInterceptor('images', 10, {
-      storage: diskStorage({
-        destination: './uploads/assets',
-        filename: (req, file, cb) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          const ext = extname(file.originalname);
-          cb(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
-        },
-      }),
+
+
+  @Post('upload-images')
+@UseInterceptors(
+  FilesInterceptor('images', 10, {
+    storage: diskStorage({
+      destination: './uploads/assets',
+      filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        const ext = extname(file.originalname);
+        cb(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
+      },
     }),
-  )
-  async createAsset(
-    @Body() assetDto: CreateAssetDto,
-    @UploadedFiles()
-    files: Array<Express.Multer.File>,
-  ) {
-    // Optional: Validate file types manually here, since @UploadedFiles doesn't allow per-file pipe easily
-    const invalidFiles = files.filter(
-      (file) =>
-        !['.jpg', '.jpeg', '.png'].includes(extname(file.originalname).toLowerCase()) ||
-      file.size > 10 * 1024 * 1024 // 10MB
-    );
-    
-    if (invalidFiles.length > 0) {
-      throw new Error('Some files are invalid. Please upload only images under 10MB.');
-    }
-    
-    const newAsset = await this.assetService.create(assetDto);
-    
-    if (files && files.length > 0) {
-      const imageUrls = files.map(file => `/uploads/assets/${file.filename}`);
-      await this.assetImageService.addImages(newAsset.id, imageUrls);
-    }
-    
-    return newAsset;
+  })
+)
+async uploadImages(@UploadedFiles() files: Array<Express.Multer.File>) {
+  if (!files || files.length === 0) {
+    throw new BadRequestException('No files uploaded.');
   }
+
+  const validImages = files.filter(file =>
+    ['.jpg', '.jpeg', '.png'].includes(extname(file.originalname).toLowerCase())
+  );
+
+  if (validImages.length !== files.length) {
+    throw new BadRequestException('Some files are invalid. Only JPG, JPEG, and PNG are allowed.');
+  }
+
+  const oversized = validImages.filter(file => file.size > 10 * 1024 * 1024);
+  if (oversized.length > 0) {
+    throw new BadRequestException('One or more files exceed the 10MB limit.');
+  }
+
+  const urls = validImages.map(file => `/uploads/assets/${file.filename}`);
+  return { urls };
+}
+
+
+@Post()
+async createAsset(@Body() assetDto: CreateAssetDto) {
+  return this.assetService.create(assetDto);
+}
+
+
+  
   
   @Put(':id')
   update(@Param('id') id: number, @Body() asset: Partial<Asset>): Promise<void> {

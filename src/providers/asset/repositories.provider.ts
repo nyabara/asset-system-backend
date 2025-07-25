@@ -1,8 +1,8 @@
 import { DataSource } from 'typeorm';
 import { User } from 'src/entities/user.entity';
 import { Asset } from 'src/entities/asset.entity';
-import { AssetCategory } from 'src/entities/asset_category.entity';
-import { AssetImage } from 'src/entities/asset_image.entity';
+import { Category } from 'src/entities/asset_category.entity';
+//import { AssetImage } from 'src/entities/asset_image.entity';
 import { AssetMovement } from 'src/entities/asset_movement.entity';
 import { AssetStatus } from 'src/entities/asset_status.entity';
 import { County } from 'src/entities/county.entity';
@@ -23,14 +23,14 @@ export const repositoryProviders = [
   },
   {
     provide: 'ASSET_CATEGORY_REPOSITORY',
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetCategory),
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(Category),
     inject: ['DATA_SOURCE'],
   },
-  {
-    provide: 'ASSET_IMAGE_REPOSITORY',
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetImage),
-    inject: ['DATA_SOURCE'],
-  },
+  // {
+  //   provide: 'ASSET_IMAGE_REPOSITORY',
+  //   useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetImage),
+  //   inject: ['DATA_SOURCE'],
+  // },
   {
     provide: 'ASSET_MOVEMENT_REPOSITORY',
     useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetMovement),

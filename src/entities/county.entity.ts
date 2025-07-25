@@ -6,5 +6,5 @@ export class County {
     id: number;
 
     @Column()
-    county_name: string;
+    countyName: string;
 }

@@ -1,14 +1,14 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Asset } from "./asset.entity";
+// import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+// import { Asset } from "./asset.entity";
 
-@Entity('asset_images')
-export class AssetImage {
-    @PrimaryGeneratedColumn()
-    id: number;
+// @Entity('asset_images')
+// export class AssetImage {
+//     @PrimaryGeneratedColumn()
+//     id: number;
 
-    @ManyToOne(() => Asset, (asset) => asset.images)
-    asset: Asset;
+//     @ManyToOne(() => Asset, (asset) => asset.images)
+//     asset: Asset;
 
-    @Column()
-    image_url: string;
-} 
+//     @Column()
+//     image_url: string;
+// } 

@@ -7,8 +7,8 @@ export class SubCounty {
     id: number;
 
     @Column()
-    sub_county_name: string;
+    subCountyName: string;
 
-    @ManyToOne(() => County)
-    county: County;
+    @Column()
+    countyId: number;
 }

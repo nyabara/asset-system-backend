@@ -6,9 +6,9 @@ import { County } from "src/entities/county.entity";
 import { SubCounty } from "src/entities/sub_county.entity";
 import { Location } from "src/entities/location.entity";
 import { FundSource } from "src/entities/fund_source.entity";
-import { AssetCategory } from "src/entities/asset_category.entity";
+import { Category } from "src/entities/asset_category.entity";
 import { Asset } from "src/entities/asset.entity";
-import { AssetImage } from "src/entities/asset_image.entity";
+//import { AssetImage } from "src/entities/asset_image.entity";
 import { AssetMovement } from "src/entities/asset_movement.entity";
 
 
@@ -65,9 +65,8 @@ export const databaseProvider = [
                     SubCounty,
                     Location,
                     FundSource,
-                    AssetCategory,
+                    Category,
                     Asset,
-                    AssetImage,
                     AssetMovement
                 ],
                 synchronize: true, // Set to false in production
