@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity('assets')
 @Unique(['barcode'])
-@Unique(['serial_number'])
+@Unique(['serialNumber'])
 export class Asset {
   @PrimaryGeneratedColumn()
   id: number;
@@ -13,10 +13,10 @@ export class Asset {
   @Column()
   barcode: string;
 
-  @Column()
+  @Column({ nullable: true })
   serialNumber: string;
 
-  @Column('decimal')
+  @Column('decimal',{ nullable: true })
   unitCost: number;
 
   @Column()
@@ -28,10 +28,10 @@ export class Asset {
   @Column()
   categoryId: number;
 
-  @Column()
+  @Column({ nullable: true })
   countyId: number;
 
-  @Column()
+  @Column({ nullable: true })
   subCountyId: number;
 
   @Column({ nullable: true })

@@ -10,16 +10,26 @@ export class AssetService {
   ) {}
 
   async findAll(): Promise<Asset[]> {
-    return this.assetRepository.find({ relations: ['status', 'location', 'fund_source', 'category', 'responsible_user', 'images'] });
+    return this.assetRepository.find();
   }
 
+  // async findOne(id: number): Promise<Asset> {
+  //   const asset = await this.assetRepository.findOne({ where: { id }, relations: ['status', 'location', 'fund_source', 'category', 'responsible_user', 'images'] });
+  //   if (!asset){
+  //       throw new NotFoundException(`Location with ID ${id} not found`);
+  //   }
+  //   return asset;
+  // }
   async findOne(id: number): Promise<Asset> {
-    const asset = await this.assetRepository.findOne({ where: { id }, relations: ['status', 'location', 'fund_source', 'category', 'responsible_user', 'images'] });
-    if (!asset){
-        throw new NotFoundException(`Location with ID ${id} not found`);
-    }
-    return asset;
+  const asset = await this.assetRepository.findOne({ where: { id } });
+
+  if (!asset) {
+    throw new NotFoundException(`Asset with ID ${id} not found`);
   }
+
+  return asset;
+}
+
 
   async create(asset: Partial<Asset>): Promise<Asset> {
     return this.assetRepository.save(asset);

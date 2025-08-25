@@ -26,7 +26,7 @@ export class AssetController {
   }
 
 
-  @Post('upload-images')
+@Post('upload-images')
 @UseInterceptors(
   FilesInterceptor('images', 10, {
     storage: diskStorage({
