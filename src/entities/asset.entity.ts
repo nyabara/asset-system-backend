@@ -57,4 +57,9 @@ export class Asset {
 
   @Column({ type: 'double precision', nullable: true })
   longitude: number;
+
+    // --- New marker field ---
+  @Column({ type: 'double precision', nullable: true })
+  marker: number | null; // can be a timestamp or null
+
 }

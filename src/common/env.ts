@@ -15,6 +15,7 @@ export const env = cleanEnv(process.env, {
   GOOGLE_CLIENT_SECRET: str(),
   GOOGLE_CLIENT_ID: str(),
   FRONTEND_URL: url(),
+  ASSET_SIGN_SECRET: str()
 });
 // export const env = cleanEnv(process.env, {
 //   AZURE_POSTGRESQL_USER : str(),
