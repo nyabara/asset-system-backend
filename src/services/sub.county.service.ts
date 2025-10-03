@@ -10,13 +10,12 @@ export class SubCountyService {
   ) {}
 
   async findAll(): Promise<SubCounty[]> {
-    return this.subCountyRepository.find({ relations: ['county'] });
+    return this.subCountyRepository.find();
   }
 
   async findOne(id: number): Promise<SubCounty> {
     const subCounty = await this.subCountyRepository.findOne({ 
-      where: { id }, 
-      relations: ['county'] 
+      where: { id }
     });
 
     if (!subCounty) {
