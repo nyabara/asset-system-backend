@@ -17,9 +17,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('API Documentation')
-    .setDescription('The API description for Ene-System App')
+    .setDescription('The API description for Asset-System App')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('Assets')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

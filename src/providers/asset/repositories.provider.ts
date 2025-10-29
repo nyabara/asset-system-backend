@@ -2,13 +2,22 @@ import { DataSource } from 'typeorm';
 import { User } from 'src/entities/user.entity';
 import { Asset } from 'src/entities/asset.entity';
 import { Category } from 'src/entities/asset_category.entity';
-//import { AssetImage } from 'src/entities/asset_image.entity';
 import { AssetMovement } from 'src/entities/asset_movement.entity';
 import { AssetStatus } from 'src/entities/asset_status.entity';
 import { County } from 'src/entities/county.entity';
 import { SubCounty } from 'src/entities/sub_county.entity';
 import { Location } from 'src/entities/location.entity';
 import { FundSource } from 'src/entities/fund_source.entity';
+
+// ========== NEW ENTITIES - Import them ==========
+import { AssetTransfer } from 'src/entities/asset_transfers.entity';
+import { AssetStatusHistory } from 'src/entities/asset_status_history.entity';
+import { AssetMaintenance } from 'src/entities/asset_maintenance.entity';
+import { AssetIssue } from 'src/entities/asset_issues.entity';
+import { AssetAuditLog } from 'src/entities/asset_audit_log.entity';
+import { AssetAttachment } from 'src/entities/asset_attachments.entity';
+import { AssetDisposal } from 'src/entities/asset_disposals.entity';
+import { Department } from 'src/entities/departments.entity';
 
 export const repositoryProviders = [
   {
@@ -26,11 +35,6 @@ export const repositoryProviders = [
     useFactory: (dataSource: DataSource) => dataSource.getRepository(Category),
     inject: ['DATA_SOURCE'],
   },
-  // {
-  //   provide: 'ASSET_IMAGE_REPOSITORY',
-  //   useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetImage),
-  //   inject: ['DATA_SOURCE'],
-  // },
   {
     provide: 'ASSET_MOVEMENT_REPOSITORY',
     useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetMovement),
@@ -59,6 +63,48 @@ export const repositoryProviders = [
   {
     provide: 'FUND_SOURCE_REPOSITORY',
     useFactory: (dataSource: DataSource) => dataSource.getRepository(FundSource),
+    inject: ['DATA_SOURCE'],
+  },
+
+    // ========== NEW REPOSITORIES ==========
+  {
+    provide: 'ASSET_TRANSFER_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetTransfer),
+    inject: ['DATA_SOURCE'],
+  },
+  {
+    provide: 'ASSET_STATUS_HISTORY_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetStatusHistory),
+    inject: ['DATA_SOURCE'],
+  },
+  {
+    provide: 'ASSET_MAINTENANCE_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetMaintenance),
+    inject: ['DATA_SOURCE'],
+  },
+  {
+    provide: 'ASSET_ISSUE_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetIssue),
+    inject: ['DATA_SOURCE'],
+  },
+  {
+    provide: 'ASSET_AUDIT_LOG_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetAuditLog),
+    inject: ['DATA_SOURCE'],
+  },
+  {
+    provide: 'ASSET_ATTACHMENT_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetAttachment),
+    inject: ['DATA_SOURCE'],
+  },
+  {
+    provide: 'ASSET_DISPOSAL_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetDisposal),
+    inject: ['DATA_SOURCE'],
+  },
+  {
+    provide: 'DEPARTMENT_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(Department),
     inject: ['DATA_SOURCE'],
   },
 ];

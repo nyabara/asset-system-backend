@@ -11,6 +11,16 @@ import { Asset } from "src/entities/asset.entity";
 //import { AssetImage } from "src/entities/asset_image.entity";
 import { AssetMovement } from "src/entities/asset_movement.entity";
 
+// ========== NEW ENTITIES - Import them ==========
+import { AssetTransfer } from "src/entities/asset_transfers.entity";
+import { AssetStatusHistory } from "src/entities/asset_status_history.entity";
+import { AssetMaintenance } from "src/entities/asset_maintenance.entity";
+import { AssetIssue } from "src/entities/asset_issues.entity";
+import { AssetAuditLog } from "src/entities/asset_audit_log.entity";
+import { AssetAttachment } from "src/entities/asset_attachments.entity";
+import { AssetDisposal } from "src/entities/asset_disposals.entity";
+import { Department } from "src/entities/departments.entity";
+
 
 
 // export const databaseProvider = [
@@ -67,7 +77,16 @@ export const databaseProvider = [
                     FundSource,
                     Category,
                     Asset,
-                    AssetMovement
+                    AssetMovement,
+                    // ========== NEW ENTITIES - Add them here ==========
+                    AssetTransfer,
+                    AssetStatusHistory,
+                    AssetMaintenance,
+                    AssetIssue,
+                    AssetAuditLog,
+                    AssetAttachment,
+                    AssetDisposal,
+                    Department
                 ],
                 synchronize: true, // Set to false in production
                 logging: true,
