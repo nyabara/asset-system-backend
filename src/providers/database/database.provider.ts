@@ -20,6 +20,8 @@ import { AssetAuditLog } from "src/entities/asset_audit_log.entity";
 import { AssetAttachment } from "src/entities/asset_attachments.entity";
 import { AssetDisposal } from "src/entities/asset_disposals.entity";
 import { Department } from "src/entities/departments.entity";
+import { AssetQRCode } from "src/entities/asset_qr_code.entity";
+import { QRScanLog } from "src/entities/qr_scan_log.entity";
 
 
 
@@ -86,7 +88,9 @@ export const databaseProvider = [
                     AssetAuditLog,
                     AssetAttachment,
                     AssetDisposal,
-                    Department
+                    Department,
+                    AssetQRCode,
+                    QRScanLog
                 ],
                 synchronize: true, // Set to false in production
                 logging: true,

@@ -10,10 +10,11 @@ import { FundSourceModule } from './modules/asset.fundsource.module';
 import { UserModule } from './modules/user.module';
 import { CategoryModule } from './modules/asset.category.module';
 import { AssetManagementModule } from './modules/asset.management.module'
+import { QRCodeModule } from './modules/qr-code.module';
 
 @Module({
   imports: [AssetModule, AssetStatusModule, AssetMovementModule, CountyModule, SubCountyModule, 
-    LocationModule, FundSourceModule, UserModule, CategoryModule, AssetManagementModule],
+    LocationModule, FundSourceModule, UserModule, CategoryModule, AssetManagementModule,QRCodeModule],
   providers: [AppService],
 })
 export class AppModule {}

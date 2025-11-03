@@ -19,7 +19,55 @@ export class AssetStatusHistoryService {
   /**
    * Change asset status and record history
    */
-  async changeAssetStatus(dto: ChangeAssetStatusDto): Promise<any> {
+  // async changeAssetStatus(dto: ChangeAssetStatusDto): Promise<any> {
+  //   // Get current asset
+  //   const asset = await this.assetRepository.findOne({ 
+  //     where: { id: dto.assetId } 
+  //   });
+
+  //   if (!asset) {
+  //     throw new NotFoundException(`Asset with ID ${dto.assetId} not found`);
+  //   }
+
+  //   // Get old status name
+  //   const oldStatus = await this.assetStatusRepository.findOne({
+  //     where: { id: asset.statusId }
+  //   });
+
+  //   // Create status history record
+  //   const history = this.statusHistoryRepository.create({
+  //     assetId: dto.assetId,
+  //     oldStatusId: asset.statusId,
+  //     oldStatusName: oldStatus?.statusName || 'Unknown',
+  //     newStatusId: dto.newStatusId,
+  //     newStatusName: dto.newStatusName,
+  //     notes: dto.notes,
+  //     changedBy: dto.changedBy
+  //   });
+
+  //   const savedHistory = await this.statusHistoryRepository.save(history);
+
+  //   // Update asset status
+  //   await this.assetRepository.update(dto.assetId, {
+  //     statusId: dto.newStatusId
+  //   });
+
+  //   return {
+  //     success: true,
+  //     message: `Asset status updated to ${dto.newStatusName}`,
+  //     statusHistory: {
+  //       id: savedHistory.id,
+  //       assetId: savedHistory.assetId,
+  //       oldStatusName: savedHistory.oldStatusName,
+  //       newStatusName: savedHistory.newStatusName,
+  //       changeDate: savedHistory.changeDate
+  //     }
+  //   };
+  // }
+  
+  // File: asset.status.history.services.ts
+
+async changeAssetStatus(dto: ChangeAssetStatusDto): Promise<any> {
     // Get current asset
     const asset = await this.assetRepository.findOne({ 
       where: { id: dto.assetId } 
@@ -47,10 +95,20 @@ export class AssetStatusHistoryService {
 
     const savedHistory = await this.statusHistoryRepository.save(history);
 
-    // Update asset status
+    // ✅ FIX: Update asset status AND updatedAt
     await this.assetRepository.update(dto.assetId, {
-      statusId: dto.newStatusId
+      statusId: dto.newStatusId,
+      updatedAt: new Date() // Add this to trigger timestamp update
     });
+
+    // ✅ OPTIONAL: Fetch updated asset to return
+    const updatedAsset = await this.assetRepository.findOne({
+      where: { id: dto.assetId }
+    });
+
+    if (!updatedAsset) {
+      throw new NotFoundException(`Updated asset not found (ID: ${dto.assetId})`);
+    }
 
     return {
       success: true,
@@ -61,10 +119,14 @@ export class AssetStatusHistoryService {
         oldStatusName: savedHistory.oldStatusName,
         newStatusName: savedHistory.newStatusName,
         changeDate: savedHistory.changeDate
+      },
+      asset: { // ✅ ADD: Return updated asset data
+        id: updatedAsset.id,
+        statusId: updatedAsset.statusId,
+        updatedAt: updatedAsset.updatedAt
       }
     };
-  }
-
+}
   /**
    * Get status history for an asset
    */

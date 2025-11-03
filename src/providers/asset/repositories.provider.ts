@@ -18,6 +18,8 @@ import { AssetAuditLog } from 'src/entities/asset_audit_log.entity';
 import { AssetAttachment } from 'src/entities/asset_attachments.entity';
 import { AssetDisposal } from 'src/entities/asset_disposals.entity';
 import { Department } from 'src/entities/departments.entity';
+import { AssetQRCode } from 'src/entities/asset_qr_code.entity';
+import { QRScanLog } from 'src/entities/qr_scan_log.entity';
 
 export const repositoryProviders = [
   {
@@ -107,4 +109,16 @@ export const repositoryProviders = [
     useFactory: (dataSource: DataSource) => dataSource.getRepository(Department),
     inject: ['DATA_SOURCE'],
   },
+
+  {
+    provide: 'ASSET_QR_CODE_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(AssetQRCode),
+    inject: ['DATA_SOURCE'],
+  },
+  {
+    provide: 'QR_SCAN_LOG_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(QRScanLog),
+    inject: ['DATA_SOURCE'],
+  },
+
 ];
